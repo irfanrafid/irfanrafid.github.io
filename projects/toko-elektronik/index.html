@@ -1,0 +1,646 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="TechHub - Toko Elektronik Online Terlengkap">
+    <title>TechHub - Toko Elektronik</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #00D4FF;
+            --secondary: #FF006E;
+            --accent: #FFBE0B;
+            --dark: #1a1a2e;
+            --light: #f5f5f5;
+            --purple: #8338EC;
+            --green: #3A86FF;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, #2d1b4e 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HEADER */
+        header {
+            background: rgba(26, 26, 46, 0.95);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.1);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 2rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+
+        .search-bar {
+            display: flex;
+            background: rgba(255, 255, 255, 0.1);
+            border: 2px solid var(--primary);
+            border-radius: 50px;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-bar input {
+            border: none;
+            padding: 0.7rem 1.5rem;
+            background: transparent;
+            flex: 1;
+            color: white;
+            font-weight: 500;
+        }
+
+        .search-bar input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-bar button {
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            padding: 0.7rem 1.5rem;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .cart-icon {
+            position: relative;
+            font-size: 1.8rem;
+            cursor: pointer;
+            filter: drop-shadow(0 0 10px rgba(0, 212, 255, 0.5));
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -10px;
+            right: -10px;
+            background: var(--secondary);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 110, 0.1));
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            border-radius: 20px;
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(255, 190, 11, 0.2), transparent);
+            border-radius: 50%;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--purple));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.5);
+        }
+
+        /* FILTER */
+        .filter-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .filter-section h3 {
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.3rem;
+        }
+
+        .filter-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .filter-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .filter-item label {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+
+        .filter-item select,
+        .filter-item input {
+            padding: 0.8rem;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            font-family: inherit;
+            background: white;
+            color: var(--dark);
+            font-weight: 500;
+        }
+
+        .filter-item select:focus,
+        .filter-item input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 10px rgba(0, 212, 255, 0.2);
+        }
+
+        .filter-btn {
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--green));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            align-self: flex-end;
+            margin-top: 1.5rem;
+        }
+
+        .filter-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* PRODUCTS */
+        .products-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .products-section h2 {
+            color: var(--dark);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .product-card {
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .product-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0, 212, 255, 0.3);
+            border-color: var(--primary);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 220px;
+            background: linear-gradient(135deg, var(--primary), var(--purple));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(255, 190, 11, 0.3), transparent);
+            border-radius: 50%;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+            z-index: 10;
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-category {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-rating {
+            color: var(--accent);
+            margin-bottom: 0.8rem;
+            font-size: 0.95rem;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            margin-bottom: 1rem;
+        }
+
+        .price-current {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .price-old {
+            font-size: 0.95rem;
+            text-decoration: line-through;
+            color: #999;
+        }
+
+        .discount-badge {
+            background: var(--secondary);
+            color: white;
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .product-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .btn-add-cart {
+            flex: 1;
+            padding: 0.8rem;
+            background: var(--primary);
+            color: var(--dark);
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+
+        .btn-add-cart:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0, 212, 255, 0.4);
+        }
+
+        .btn-wishlist {
+            padding: 0.8rem 1rem;
+            background: rgba(255, 0, 110, 0.1);
+            color: var(--secondary);
+            border: 2px solid var(--secondary);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .btn-wishlist:hover {
+            background: var(--secondary);
+            color: white;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+            border-top: 3px solid var(--primary);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .back-link:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .search-bar {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .products-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .filter-group {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <div class="logo">⚡ TechHub</div>
+            <div class="header-right">
+                <div class="search-bar">
+                    <input type="text" placeholder="Cari produk elektronik...">
+                    <button>🔍</button>
+                </div>
+                <div class="cart-icon" onclick="toggleCart()">
+                    🛒
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <h1>⚡ Elektronik Terbaru & Terlengkap</h1>
+            <p>Dapatkan gadget impian Anda dengan harga terbaik</p>
+            <button class="btn">Belanja Sekarang</button>
+        </div>
+    </section>
+
+    <!-- FILTER -->
+    <section class="container">
+        <div class="filter-section">
+            <h3>🔍 Filter Produk</h3>
+            <div class="filter-group">
+                <div class="filter-item">
+                    <label>Kategori</label>
+                    <select id="categoryFilter" onchange="applyFilters()">
+                        <option value="">Semua Kategori</option>
+                        <option value="smartphone">Smartphone</option>
+                        <option value="laptop">Laptop</option>
+                        <option value="accessories">Accessories</option>
+                        <option value="audio">Audio</option>
+                    </select>
+                </div>
+                <div class="filter-item">
+                    <label>Harga Minimum</label>
+                    <input type="number" id="minPrice" placeholder="0" onchange="applyFilters()">
+                </div>
+                <div class="filter-item">
+                    <label>Harga Maksimum</label>
+                    <input type="number" id="maxPrice" placeholder="100000000" onchange="applyFilters()">
+                </div>
+                <div class="filter-item">
+                    <label>Rating Minimum</label>
+                    <select id="ratingFilter" onchange="applyFilters()">
+                        <option value="">Semua Rating</option>
+                        <option value="5">5 Bintang</option>
+                        <option value="4">4+ Bintang</option>
+                        <option value="3">3+ Bintang</option>
+                    </select>
+                </div>
+            </div>
+            <button class="filter-btn" onclick="resetFilters()">Reset Filter</button>
+        </div>
+    </section>
+
+    <!-- PRODUCTS -->
+    <section class="container">
+        <div class="products-section">
+            <h2>📱 Produk Pilihan</h2>
+            <div class="products-grid" id="productsGrid">
+                <!-- Products will be generated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <a href="/" class="back-link">← Kembali ke Portfolio Utama</a>
+            <p>&copy; 2025 TechHub. Elektronik Berkualitas Indonesia.</p>
+        </div>
+    </footer>
+
+    <script>
+        const products = [
+            { id: 1, name: 'iPhone 15 Pro', category: 'smartphone', price: 18999000, oldPrice: 20999000, rating: 5, reviews: 234, emoji: '📱', badge: 'Terbaru' },
+            { id: 2, name: 'Samsung Galaxy S24', category: 'smartphone', price: 16999000, oldPrice: 18999000, rating: 5, reviews: 189, emoji: '📱', badge: 'Hot' },
+            { id: 3, name: 'MacBook Pro M3', category: 'laptop', price: 24999000, oldPrice: 28999000, rating: 5, reviews: 156, emoji: '💻', badge: 'Premium' },
+            { id: 4, name: 'ASUS VivoBook', category: 'laptop', price: 8999000, oldPrice: 10999000, rating: 4, reviews: 145, emoji: '💻', badge: 'Hemat' },
+            { id: 5, name: 'Apple Watch Series 9', category: 'accessories', price: 5999000, oldPrice: 7499000, rating: 5, reviews: 98, emoji: '⌚', badge: 'Best' },
+            { id: 6, name: 'AirPods Pro 2', category: 'audio', price: 3499000, oldPrice: 4499000, rating: 5, reviews: 234, emoji: '🎧', badge: 'Populer' },
+            { id: 7, name: 'Samsung Galaxy Tab', category: 'accessories', price: 7999000, oldPrice: 9999000, rating: 4, reviews: 87, emoji: '📱', badge: 'Best' },
+            { id: 8, name: 'Sony WH-1000XM5', category: 'audio', price: 4999000, oldPrice: 5999000, rating: 5, reviews: 167, emoji: '🎧', badge: 'Terbaru' },
+        ];
+
+        let cart = [];
+
+        function renderProducts(productsToShow = products) {
+            const grid = document.getElementById('productsGrid');
+            grid.innerHTML = productsToShow.map(product => `
+                <div class="product-card">
+                    <div class="product-image" style="background: linear-gradient(135deg, ${getRandomColor()} 0%, ${getRandomColor()} 100%);">
+                        ${product.emoji}
+                        <span class="product-badge">${product.badge}</span>
+                    </div>
+                    <div class="product-info">
+                        <div class="product-category">${product.category}</div>
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-rating">⭐⭐⭐⭐⭐ (${product.reviews} review)</div>
+                        <div class="product-price">
+                            <span class="price-current">Rp ${product.price.toLocaleString('id-ID')}</span>
+                            <span class="price-old">Rp ${product.oldPrice.toLocaleString('id-ID')}</span>
+                            <span class="discount-badge">-${Math.round((1 - product.price/product.oldPrice) * 100)}%</span>
+                        </div>
+                        <div class="product-actions">
+                            <button class="btn-add-cart" onclick="addToCart(${product.id})">Tambah Keranjang</button>
+                            <button class="btn-wishlist" onclick="toggleWishlist()">❤️</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getRandomColor() {
+            const colors = ['#00D4FF', '#FF006E', '#FFBE0B', '#8338EC', '#3A86FF', '#FB5607'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            cart.push(product);
+            updateCartCount();
+            alert(`${product.name} ditambahkan ke keranjang!`);
+        }
+
+        function toggleCart() {
+            if (cart.length === 0) {
+                alert('Keranjang Anda kosong');
+                return;
+            }
+            const cartSummary = cart.map(p => p.name).join('\n');
+            alert(`Isi keranjang:\n${cartSummary}\n\nTotal: ${cart.length} item`);
+        }
+
+        function toggleWishlist() {
+            alert('Ditambahkan ke wishlist! ❤️');
+        }
+
+        function updateCartCount() {
+            document.getElementById('cartCount').textContent = cart.length;
+        }
+
+        function applyFilters() {
+            const category = document.getElementById('categoryFilter').value;
+            const minPrice = parseInt(document.getElementById('minPrice').value) || 0;
+            const maxPrice = parseInt(document.getElementById('maxPrice').value) || Infinity;
+            const minRating = parseInt(document.getElementById('ratingFilter').value) || 0;
+
+            const filtered = products.filter(p => 
+                (category === '' || p.category === category) &&
+                p.price >= minPrice &&
+                p.price <= maxPrice &&
+                (minRating === 0 || p.rating >= minRating)
+            );
+
+            renderProducts(filtered.length > 0 ? filtered : []);
+            if (filtered.length === 0) {
+                document.getElementById('productsGrid').innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666; font-size: 1.1rem;">Produk tidak ditemukan</p>';
+            }
+        }
+
+        function resetFilters() {
+            document.getElementById('categoryFilter').value = '';
+            document.getElementById('minPrice').value = '';
+            document.getElementById('maxPrice').value = '';
+            document.getElementById('ratingFilter').value = '';
+            renderProducts();
+        }
+
+        // Initialize
+        renderProducts();
+    </script>
+</body>
+</html>

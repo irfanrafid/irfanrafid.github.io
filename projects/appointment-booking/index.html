@@ -1,0 +1,550 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="GlowSalon - Platform Booking Salon Online">
+    <title>GlowSalon - Appointment Booking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #FF10F0;
+            --secondary: #00D9FF;
+            --accent: #FFD60A;
+            --success: #52B788;
+            --dark: #0d0221;
+            --light: #f5f5f5;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, #1a0033 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HEADER */
+        header {
+            background: rgba(13, 2, 33, 0.95);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(255, 16, 240, 0.1);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, rgba(255, 16, 240, 0.1), rgba(0, 217, 255, 0.1));
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            border-radius: 20px;
+            margin: 2rem 0;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(255, 16, 240, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 16, 240, 0.5);
+        }
+
+        /* SERVICES */
+        .services-section {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .services-section h2 {
+            color: var(--dark);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .service-card {
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            border-radius: 15px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(255, 16, 240, 0.3);
+            border-color: var(--primary);
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .service-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .service-duration {
+            font-size: 0.9rem;
+            color: #666;
+            margin-bottom: 0.8rem;
+        }
+
+        .service-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 1rem;
+        }
+
+        .service-details {
+            font-size: 0.95rem;
+            color: #666;
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        .btn-book {
+            width: 100%;
+            padding: 0.8rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-book:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(255, 16, 240, 0.4);
+        }
+
+        /* BOOKING FORM */
+        .booking-section {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .booking-section h2 {
+            color: var(--dark);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .booking-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            max-width: 800px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            padding: 1rem;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            font-family: inherit;
+            background: white;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 10px rgba(255, 16, 240, 0.2);
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn-submit {
+            grid-column: 1 / -1;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1.1rem;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(255, 16, 240, 0.4);
+        }
+
+        /* TESTIMONIALS */
+        .testimonials-section {
+            background: linear-gradient(135deg, rgba(255, 16, 240, 0.1), rgba(0, 217, 255, 0.1));
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+        }
+
+        .testimonials-section h2 {
+            color: white;
+            margin-bottom: 2rem;
+            text-align: center;
+            font-size: 2rem;
+        }
+
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .testimonial-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            border-left: 5px solid var(--primary);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .testimonial-stars {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .testimonial-text {
+            color: #666;
+            margin-bottom: 1rem;
+            font-style: italic;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.3rem;
+        }
+
+        .testimonial-role {
+            font-size: 0.85rem;
+            color: #999;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+            border-top: 3px solid var(--primary);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .booking-form {
+                grid-template-columns: 1fr;
+            }
+
+            nav {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <div class="logo">✨ GlowSalon</div>
+            <nav>
+                <a href="#services">Layanan</a>
+                <a href="#booking">Booking</a>
+                <a href="#reviews">Review</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <h1>✨ Kecantikan Terbaik untuk Anda</h1>
+            <p>Reservasi sekarang dan dapatkan pengalaman salon premium</p>
+            <button class="btn" onclick="scrollToBooking()">Pesan Sekarang</button>
+        </div>
+    </section>
+
+    <!-- SERVICES -->
+    <section id="services" class="container">
+        <div class="services-section">
+            <h2>💇‍♀️ Layanan Kami</h2>
+            <div class="services-grid" id="servicesGrid">
+                <!-- Services will be generated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- BOOKING -->
+    <section id="booking" class="container">
+        <div class="booking-section">
+            <h2>📅 Pesan Appointment</h2>
+            <form class="booking-form" onsubmit="handleBooking(event)">
+                <div class="form-group">
+                    <label>Nama Lengkap</label>
+                    <input type="text" required>
+                </div>
+                <div class="form-group">
+                    <label>Email</label>
+                    <input type="email" required>
+                </div>
+                <div class="form-group">
+                    <label>Telepon</label>
+                    <input type="tel" required>
+                </div>
+                <div class="form-group">
+                    <label>Tanggal</label>
+                    <input type="date" required>
+                </div>
+                <div class="form-group">
+                    <label>Jam</label>
+                    <select required>
+                        <option value="">Pilih Jam</option>
+                        <option value="09:00">09:00 - 10:00</option>
+                        <option value="10:00">10:00 - 11:00</option>
+                        <option value="11:00">11:00 - 12:00</option>
+                        <option value="13:00">13:00 - 14:00</option>
+                        <option value="14:00">14:00 - 15:00</option>
+                        <option value="15:00">15:00 - 16:00</option>
+                        <option value="16:00">16:00 - 17:00</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Pilih Stylist</label>
+                    <select required>
+                        <option value="">Pilih Stylist</option>
+                        <option value="ari">Ari (Master Stylist)</option>
+                        <option value="siti">Siti (Senior Stylist)</option>
+                        <option value="budi">Budi (Stylist)</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>Pilih Layanan</label>
+                    <select required>
+                        <option value="">Pilih Layanan</option>
+                        <option value="potong">Potong Rambut</option>
+                        <option value="coloring">Hair Coloring</option>
+                        <option value="smoothing">Hair Smoothing</option>
+                        <option value="spa">Spa</option>
+                        <option value="facial">Facial Treatment</option>
+                    </select>
+                </div>
+                <div class="form-group full">
+                    <label>Catatan Khusus (Opsional)</label>
+                    <textarea placeholder="Jelaskan kebutuhan atau preferensi Anda..."></textarea>
+                </div>
+                <button type="submit" class="btn-submit">Konfirmasi Booking</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section id="reviews" class="container">
+        <div class="testimonials-section">
+            <h2>⭐ Review Pelanggan</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <div class="testimonial-text">"Salon ini amazing! Kualitas layanan sangat bagus dan harganya worth it. Stylist profesional dan ramah!"</div>
+                    <div class="testimonial-author">Rina Putri</div>
+                    <div class="testimonial-role">Pengunjung Setia</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <div class="testimonial-text">"Pertama kali datang ke GlowSalon dan langsung jatuh cinta! Hasilnya perfect dan pelayanan super friendly."</div>
+                    <div class="testimonial-author">Dina Kusuma</div>
+                    <div class="testimonial-role">Pelanggan Baru</div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                    <div class="testimonial-text">"Salon terbaik yang pernah saya kunjungi. Ambience bagus, clean, dan hasilnya selalu sesuai harapan!"</div>
+                    <div class="testimonial-author">Sinta Wijaya</div>
+                    <div class="testimonial-role">Pelanggan Rutin</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <a href="/" class="back-link">← Kembali ke Portfolio Utama</a>
+            <p>&copy; 2025 GlowSalon. Kecantikan Premium Indonesia.</p>
+        </div>
+    </footer>
+
+    <script>
+        const services = [
+            { id: 1, name: 'Potong Rambut', duration: '45 menit', price: 150000, details: 'Potongan rambut trendy dengan stylist profesional', icon: '✂️' },
+            { id: 2, name: 'Hair Coloring', duration: '90 menit', price: 450000, details: 'Pewarnaan rambut dengan produk premium', icon: '🎨' },
+            { id: 3, name: 'Hair Smoothing', duration: '180 menit', price: 800000, details: 'Perawatan rambut smoothing profesional', icon: '💆' },
+            { id: 4, name: 'Spa Rambut', duration: '60 menit', price: 300000, details: 'Spa rambut lengkap dengan aromaterapi', icon: '🧖' },
+            { id: 5, name: 'Facial Treatment', duration: '75 menit', price: 500000, details: 'Perawatan wajah dengan skincare premium', icon: '💅' },
+            { id: 6, name: 'Makeup Artistry', duration: '60 menit', price: 350000, details: 'Makeup profesional untuk acara spesial', icon: '💄' },
+        ];
+
+        function renderServices() {
+            const grid = document.getElementById('servicesGrid');
+            grid.innerHTML = services.map(service => `
+                <div class="service-card">
+                    <div class="service-icon">${service.icon}</div>
+                    <div class="service-name">${service.name}</div>
+                    <div class="service-duration">⏱️ ${service.duration}</div>
+                    <div class="service-price">Rp ${service.price.toLocaleString('id-ID')}</div>
+                    <div class="service-details">${service.details}</div>
+                    <button class="btn-book" onclick="scrollToBooking()">Pesan Sekarang</button>
+                </div>
+            `).join('');
+        }
+
+        function scrollToBooking() {
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function handleBooking(e) {
+            e.preventDefault();
+            alert('✅ Booking Berhasil!\n\nTerima kasih telah reservasi di GlowSalon.\nKami akan mengkonfirmasi appointment Anda melalui SMS/Email dalam 1 jam.\n\nTunggu kami ya! 💅');
+            e.target.reset();
+        }
+
+        // Initialize
+        renderServices();
+    </script>
+</body>
+</html>

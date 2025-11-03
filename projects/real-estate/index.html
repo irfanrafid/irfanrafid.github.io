@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="PropFind - Platform Jual Beli Properti Indonesia">
+    <title>PropFind - Real Estate Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1E90FF;
+            --secondary: #FF1493;
+            --accent: #FFD700;
+            --success: #00CED1;
+            --dark: #0f0f23;
+            --light: #f5f5f5;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--dark) 0%, #1a0f33 100%);
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* HEADER */
+        header {
+            background: rgba(15, 15, 35, 0.95);
+            padding: 1.5rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 10px 30px rgba(30, 144, 255, 0.1);
+            border-bottom: 3px solid var(--primary);
+        }
+
+        header .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: var(--primary);
+        }
+
+        /* HERO */
+        .hero {
+            background: linear-gradient(135deg, rgba(30, 144, 255, 0.1), rgba(0, 206, 209, 0.1));
+            color: white;
+            padding: 5rem 0;
+            text-align: center;
+            border-radius: 20px;
+            margin: 2rem 0;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--success));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 700;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 10px 30px rgba(30, 144, 255, 0.3);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(30, 144, 255, 0.5);
+        }
+
+        /* SEARCH */
+        .search-section {
+            background: white;
+            padding: 2.5rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+        }
+
+        .search-section h3 {
+            color: var(--dark);
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+        }
+
+        .search-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .search-item {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .search-item label {
+            font-weight: 600;
+            color: var(--dark);
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .search-item select,
+        .search-item input {
+            padding: 1rem;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            font-family: inherit;
+            background: white;
+            color: var(--dark);
+            font-weight: 500;
+            font-size: 0.95rem;
+        }
+
+        .search-item select:focus,
+        .search-item input:focus {
+            outline: none;
+            border-color: var(--secondary);
+            box-shadow: 0 0 10px rgba(30, 144, 255, 0.2);
+        }
+
+        .search-btn {
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+            align-self: flex-end;
+            margin-top: 1rem;
+        }
+
+        .search-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* PROPERTIES */
+        .properties-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .properties-section h2 {
+            color: var(--dark);
+            margin-bottom: 2rem;
+            font-size: 2rem;
+        }
+
+        .properties-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .property-card {
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s;
+            border: 2px solid transparent;
+            cursor: pointer;
+        }
+
+        .property-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(30, 144, 255, 0.3);
+            border-color: var(--primary);
+        }
+
+        .property-image {
+            width: 100%;
+            height: 250px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .property-tag {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: var(--secondary);
+            color: white;
+            padding: 0.5rem 1rem;
+            border-radius: 50px;
+            font-size: 0.85rem;
+            font-weight: 700;
+        }
+
+        .property-info {
+            padding: 1.5rem;
+        }
+
+        .property-type {
+            font-size: 0.85rem;
+            color: var(--primary);
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 0.5rem;
+        }
+
+        .property-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 0.8rem;
+        }
+
+        .property-location {
+            color: #666;
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .property-specs {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            margin: 1rem 0;
+            padding: 1rem 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .spec {
+            text-align: center;
+        }
+
+        .spec-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .spec-label {
+            font-size: 0.8rem;
+            color: #666;
+            margin-top: 0.3rem;
+        }
+
+        .property-price {
+            font-size: 1.8rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin: 1rem 0;
+        }
+
+        .property-actions {
+            display: flex;
+            gap: 0.8rem;
+        }
+
+        .btn-contact {
+            flex: 1;
+            padding: 0.8rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-contact:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(30, 144, 255, 0.4);
+        }
+
+        .btn-save {
+            padding: 0.8rem 1rem;
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: all 0.3s;
+        }
+
+        .btn-save:hover {
+            background: var(--accent);
+            color: var(--dark);
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            margin-top: 4rem;
+            border-top: 3px solid var(--primary);
+        }
+
+        .back-link {
+            display: inline-block;
+            margin-bottom: 1rem;
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .search-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .properties-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- HEADER -->
+    <header>
+        <div class="container">
+            <div class="logo">🏠 PropFind</div>
+            <nav>
+                <a href="#home">Home</a>
+                <a href="#search">Cari</a>
+                <a href="#about">Tentang</a>
+                <a href="#contact">Kontak</a>
+            </nav>
+        </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="container">
+            <h1>🏡 Temukan Properti Impian Anda</h1>
+            <p>Ribuan pilihan rumah, apartemen, dan investasi properti</p>
+            <button class="btn">Mulai Cari</button>
+        </div>
+    </section>
+
+    <!-- SEARCH -->
+    <section class="container">
+        <div class="search-section">
+            <h3>🔍 Cari Properti</h3>
+            <div class="search-grid">
+                <div class="search-item">
+                    <label>Tipe Properti</label>
+                    <select id="typeFilter" onchange="applySearch()">
+                        <option value="">Semua Tipe</option>
+                        <option value="rumah">Rumah</option>
+                        <option value="apartemen">Apartemen</option>
+                        <option value="ruko">Ruko</option>
+                        <option value="tanah">Tanah</option>
+                    </select>
+                </div>
+                <div class="search-item">
+                    <label>Kota</label>
+                    <select id="cityFilter" onchange="applySearch()">
+                        <option value="">Semua Kota</option>
+                        <option value="jakarta">Jakarta</option>
+                        <option value="bandung">Bandung</option>
+                        <option value="surabaya">Surabaya</option>
+                        <option value="bali">Bali</option>
+                    </select>
+                </div>
+                <div class="search-item">
+                    <label>Harga Minimum (Juta)</label>
+                    <input type="number" id="minPrice" placeholder="0" onchange="applySearch()">
+                </div>
+                <div class="search-item">
+                    <label>Harga Maksimum (Juta)</label>
+                    <input type="number" id="maxPrice" placeholder="10000" onchange="applySearch()">
+                </div>
+            </div>
+            <button class="search-btn" onclick="resetSearch()">Reset</button>
+        </div>
+    </section>
+
+    <!-- PROPERTIES -->
+    <section class="container">
+        <div class="properties-section">
+            <h2>📍 Properti Unggulan</h2>
+            <div class="properties-grid" id="propertiesGrid">
+                <!-- Properties will be generated by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container">
+            <a href="/" class="back-link">← Kembali ke Portfolio Utama</a>
+            <p>&copy; 2025 PropFind. Properti Indonesia.</p>
+        </div>
+    </footer>
+
+    <script>
+        const properties = [
+            { id: 1, title: 'Rumah Mewah Senayan', type: 'rumah', city: 'jakarta', price: 5500, beds: 4, baths: 3, area: 350, emoji: '🏡', tag: 'Premium' },
+            { id: 2, title: 'Apartemen Modern CBD', type: 'apartemen', city: 'jakarta', price: 1200, beds: 2, baths: 1, area: 85, emoji: '🏢', tag: 'Hot' },
+            { id: 3, title: 'Ruko Komersial Bandung', type: 'ruko', city: 'bandung', price: 800, beds: 0, baths: 1, area: 150, emoji: '🏬', tag: 'Invest' },
+            { id: 4, title: 'Vila Luxury Bali', type: 'rumah', city: 'bali', price: 3000, beds: 5, baths: 4, area: 500, emoji: '🏝️', tag: 'Baru' },
+            { id: 5, title: 'Tanah Kavling Surabaya', type: 'tanah', city: 'surabaya', price: 400, beds: 0, baths: 0, area: 200, emoji: '🌳', tag: 'Hemat' },
+            { id: 6, title: 'Penthouse Sudirman', type: 'apartemen', city: 'jakarta', price: 7000, beds: 3, baths: 3, area: 200, emoji: '🏙️', tag: 'Elite' },
+            { id: 7, title: 'Rumah Cluster Bandung', type: 'rumah', city: 'bandung', price: 900, beds: 3, baths: 2, area: 120, emoji: '🏘️', tag: 'Best' },
+            { id: 8, title: 'Apartment Bali Seminyak', type: 'apartemen', city: 'bali', price: 1500, beds: 2, baths: 2, area: 100, emoji: '🏖️', tag: 'Resort' },
+        ];
+
+        function renderProperties(propertiesToShow = properties) {
+            const grid = document.getElementById('propertiesGrid');
+            grid.innerHTML = propertiesToShow.map(prop => `
+                <div class="property-card">
+                    <div class="property-image" style="background: linear-gradient(135deg, ${getRandomColor()}, ${getRandomColor()});">
+                        ${prop.emoji}
+                        <span class="property-tag">${prop.tag}</span>
+                    </div>
+                    <div class="property-info">
+                        <div class="property-type">${prop.type}</div>
+                        <div class="property-title">${prop.title}</div>
+                        <div class="property-location">📍 ${prop.city.toUpperCase()}</div>
+                        
+                        <div class="property-specs">
+                            ${prop.beds > 0 ? `<div class="spec"><div class="spec-value">${prop.beds}</div><div class="spec-label">Kamar</div></div>` : ''}
+                            ${prop.baths > 0 ? `<div class="spec"><div class="spec-value">${prop.baths}</div><div class="spec-label">Kamar Mandi</div></div>` : ''}
+                            <div class="spec"><div class="spec-value">${prop.area}</div><div class="spec-label">m²</div></div>
+                        </div>
+
+                        <div class="property-price">Rp ${(prop.price * 1000000).toLocaleString('id-ID')}</div>
+                        <div class="property-actions">
+                            <button class="btn-contact" onclick="contactAgent()">Hubungi Agen</button>
+                            <button class="btn-save" onclick="saveProperty()">❤️</button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function getRandomColor() {
+            const colors = ['#1E90FF', '#FF1493', '#FFD700', '#00CED1', '#FF6347', '#32CD32'];
+            return colors[Math.floor(Math.random() * colors.length)];
+        }
+
+        function contactAgent() {
+            alert('Hubungi Agen:\n☎️ (021) 1234-5678\n📱 +62 812-3456-7890\n💬 WhatsApp');
+        }
+
+        function saveProperty() {
+            alert('Properti ditambahkan ke favorit! ❤️');
+        }
+
+        function applySearch() {
+            const type = document.getElementById('typeFilter').value;
+            const city = document.getElementById('cityFilter').value;
+            const minPrice = parseInt(document.getElementById('minPrice').value) || 0;
+            const maxPrice = parseInt(document.getElementById('maxPrice').value) || Infinity;
+
+            const filtered = properties.filter(p => 
+                (type === '' || p.type === type) &&
+                (city === '' || p.city === city) &&
+                p.price >= minPrice &&
+                p.price <= maxPrice
+            );
+
+            renderProperties(filtered.length > 0 ? filtered : []);
+            if (filtered.length === 0) {
+                document.getElementById('propertiesGrid').innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #666; font-size: 1.1rem;">Properti tidak ditemukan</p>';
+            }
+        }
+
+        function resetSearch() {
+            document.getElementById('typeFilter').value = '';
+            document.getElementById('cityFilter').value = '';
+            document.getElementById('minPrice').value = '';
+            document.getElementById('maxPrice').value = '';
+            renderProperties();
+        }
+
+        // Initialize
+        renderProperties();
+    </script>
+</body>
+</html>
