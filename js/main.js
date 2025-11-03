@@ -32,8 +32,7 @@ window.addEventListener('scroll', () => {
         }
     });
 });
-
- // Tools & Languages Data dengan URL Logo dari CDN
+    // Tools & Languages Data dengan URL Logo dari CDN
     const tools = [
         { name: 'HTML5', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg' },
         { name: 'CSS3', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg' },
@@ -52,6 +51,9 @@ window.addEventListener('scroll', () => {
         { name: 'Docker', logo: 'https://cdn.jsdelivr.net/gh/devicons/devicon/icons/docker/docker-original.svg' },
     ];
 
+    let autoScrollInterval;
+    let isAutoScrolling = true;
+
     // Render Carousel
     function renderCarousel() {
         const carousel = document.getElementById('toolsCarousel');
@@ -63,16 +65,61 @@ window.addEventListener('scroll', () => {
         `).join('');
     }
 
-    // Scroll Carousel
+    // Auto Scroll Function
+    function startAutoScroll() {
+        if (autoScrollInterval) clearInterval(autoScrollInterval);
+        
+        autoScrollInterval = setInterval(() => {
+            const carousel = document.getElementById('toolsCarousel');
+            
+            // Jika sudah scroll ke akhir, kembali ke awal
+            if (carousel.scrollLeft + carousel.clientWidth >= carousel.scrollWidth - 10) {
+                carousel.scrollTo({ left: 0, behavior: 'smooth' });
+            } else {
+                carousel.scrollBy({ left: 300, behavior: 'smooth' });
+            }
+        }, 4000); // Auto scroll setiap 4 detik
+    }
+
+    // Stop Auto Scroll
+    function stopAutoScroll() {
+        if (autoScrollInterval) {
+            clearInterval(autoScrollInterval);
+            autoScrollInterval = null;
+        }
+    }
+
+    // Manual Scroll
     function scrollCarousel(direction) {
         const carousel = document.getElementById('toolsCarousel');
         const scrollAmount = 300;
+        
+        // Stop auto scroll saat user manual scroll
+        stopAutoScroll();
         
         if (direction === 'left') {
             carousel.scrollBy({ left: -scrollAmount, behavior: 'smooth' });
         } else {
             carousel.scrollBy({ left: scrollAmount, behavior: 'smooth' });
         }
+
+        // Resume auto scroll setelah 5 detik
+        setTimeout(() => {
+            startAutoScroll();
+        }, 5000);
+    }
+
+    // Pause Auto Scroll on Mouse Hover
+    function setupCarouselEvents() {
+        const carousel = document.getElementById('toolsCarousel');
+        
+        carousel.addEventListener('mouseenter', () => {
+            stopAutoScroll();
+        });
+
+        carousel.addEventListener('mouseleave', () => {
+            startAutoScroll();
+        });
     }
 
     // Keyboard Navigation
@@ -83,3 +130,6 @@ window.addEventListener('scroll', () => {
 
     // Initialize Carousel
     renderCarousel();
+    setupCarouselEvents();
+    startAutoScroll();
+
